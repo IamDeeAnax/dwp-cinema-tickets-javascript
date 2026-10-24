@@ -1,3 +1,5 @@
+import { TICKET_TYPES } from './ticketRules.js';
+
 /**
  * Immutable Object.
  */
@@ -8,8 +10,8 @@ export default class TicketTypeRequest {
   #noOfTickets;
 
   constructor(type, noOfTickets) {
-    if (!this.#Type.includes(type)) {
-      throw new TypeError(`type must be ${this.#Type.slice(0, -1).join(', ')}, or ${this.#Type.slice(-1)}`);
+    if (!TICKET_TYPES.includes(type)) {
+      throw new TypeError(`type must be one of: ${TICKET_TYPES.join(', ')}`);
     }
 
     if (!Number.isInteger(noOfTickets)) {
@@ -18,6 +20,7 @@ export default class TicketTypeRequest {
 
     this.#type = type;
     this.#noOfTickets = noOfTickets;
+    Object.freeze(this);
   }
 
   getNoOfTickets() {
@@ -27,6 +30,4 @@ export default class TicketTypeRequest {
   getTicketType() {
     return this.#type;
   }
-
-  #Type = ['ADULT', 'CHILD', 'INFANT'];
 }
